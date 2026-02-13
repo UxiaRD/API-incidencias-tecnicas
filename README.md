@@ -1,5 +1,5 @@
 # API REST de Gestión de Incidencias Técnicas
-![CI Status](https://github.com/TU_USUARIO/TU_REPOSITORIO/actions/workflows/ci.yml/badge.svg)
+[![CI API Incidencias](https://github.com/UxiaRD/API-incidencias-tecnicas/actions/workflows/ci.yml/badge.svg)](https://github.com/UxiaRD/API-incidencias-tecnicas/actions/workflows/ci.yml)
 
 Este proyecto consiste en una API REST desarrollada con FastAPI para la gestión de incidencias técnicas en un entorno de soporte. El sistema permite registrar nuevas incidencias y filtrar aquellas que requieren atención inmediata basándose en su estado y prioridad.
 
