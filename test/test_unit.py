@@ -1,4 +1,3 @@
-import pytest
 from app.models import Incidencia, Estado, Prioridad
 from app.services import IssueService
 
