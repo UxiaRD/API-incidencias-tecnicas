@@ -34,7 +34,9 @@ jobs:
 
     # 5. Ejecutar tests unitarios [cite: 16, 60]
     - name: Ejecutar tests unitarios
-      run: pytest test/test_unit.py
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        pytest test/test_unit.py
 
     # 6. Arrancar la API en segundo plano [cite: 17, 61, 69]
     - name: Arrancar aplicación FastAPI
@@ -45,4 +47,6 @@ jobs:
 
     # 7. Ejecutar tests end to end contra la API activa [cite: 17, 62, 82]
     - name: Ejecutar tests E2E
-      run: pytest test/test_e2e.py
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$(pwd)
+        pytest test/test_e2e.py
