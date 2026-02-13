@@ -1,0 +1,48 @@
+name: CI API Incidencias
+
+# Se ejecuta en cada push y pull request a la rama principal [cite: 53, 55, 56]
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Descargar el código del repositorio
+    - name: Checkout de código
+      uses: actions/checkout@v4
+
+    # 2. Configurar el entorno de Python [cite: 58]
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # 3. Instalar dependencias [cite: 58]
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # 4. Análisis estático con Ruff [cite: 15, 59]
+    - name: Ejecutar linter (ruff)
+      run: ruff check .
+
+    # 5. Ejecutar tests unitarios [cite: 16, 60]
+    - name: Ejecutar tests unitarios
+      run: pytest tests/test_unit.py
+
+    # 6. Arrancar la API en segundo plano [cite: 17, 61, 69]
+    - name: Arrancar aplicación FastAPI
+      run: |
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+        # Esperar un par de segundos para asegurar que la API suba
+        sleep 5
+
+    # 7. Ejecutar tests end to end contra la API activa [cite: 17, 62, 82]
+    - name: Ejecutar tests E2E
+      run: pytest tests/test_e2e.py
